@@ -1,0 +1,35 @@
+#include <stdio.h>
+/**
+This program asks user for a k unsigned integers and stores the unsigned integers in a single insigned int.
+
+@return 1 for errors to terminate or 0 for execution
+ */
+int main(){
+  unsigned int x=0;
+  int k;
+
+  printf("Please enter k:");
+  scanf("%d", &k);
+
+  //check if k is a number that can divide 32
+  if(k !=1 && k!=2 && k!=4 && k!=8 && k!=16 && k!=32){
+    printf("Invalid value, please enter a valid value.\n");
+    return 1; 
+  }
+  
+  printf("Please enter %d unsigned ints:",k);
+
+  for(int i=0;i<k;i++){
+    unsigned int value;
+    scanf("%u", &value);
+    //error if k integers is too large to fit into one of the k group of bits
+    if(value > ((1u << (32/k)) -1)){
+	printf("The integer %u is an invalid input\n", value);
+	return 1;//Program terminates
+      }
+      //bitwise operations to shift and combine values
+    x = (x << (32/k))|value;
+  }
+    printf("Overall Value = %u\n", x);
+    return 0; 
+}
